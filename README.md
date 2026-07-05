@@ -17,16 +17,9 @@ python_embeded\python.exe -m pip install -U diffusers transformers omegaconf acc
 3. Download a checkpoint repo (gated — accept the license on HF first), e.g. `SeFi-Image/SeFi-Image-5B-Base`, keeping the folder layout intact (`sefi_config.yaml`, `transformer/`, `vae/`, `text_encoder/`, `scheduler/`).
 
 ## Model installation (standard ComfyUI folders)
-1. **Transformer**: merge the shards into ONE file with the included script, then drop it in `models/diffusion_models/`. Keep the scale + family in the filename (e.g. `SeFi-5B-Base_transformer_bf16.safetensors`, `SeFi-5B-Turbo_...`) - the loader auto-detects both from it.
-```
-python_embeded\python.exe sefi_merge_transformer.py --src <shard folder> --dst ComfyUI\models\diffusion_models\SeFi-5B-Base_transformer_bf16.safetensors
-```
-2. **Text encoder**: one command builds a single-file encoder for the dropdown (downloads ~9GB once, strips the unused vision tower, bundles the tiny tokenizer/config assets INSIDE this node pack):
-```
-python_embeded\python.exe ComfyUI\custom_nodes\ComfyUI_Rebels_SeFi\prepare_sefi_encoder.py --comfy ComfyUI
-```
-The merged `SeFi_Qwen3-VL-4B_text_bf16.safetensors` lands in `models/text_encoders/` and shows up in the dropdown. (Already have the HF folder? Add `--src <folder>` to skip the download. Full HF folders under text_encoders also appear in the dropdown as `[folder] ...`.)
-3. **VAE**: your existing single-file `flux2-vae.safetensors` in `models/vae/` works directly - it appears in the dropdown. For guaranteed-exact config values, drop the official `config.json` (from the SeFi repo's `vae/` folder) into this pack's `vae_assets/` as `flux2.json`; without it the loader derives the architecture from the weights. Diffusers-format VAE folders also work (listed as `[folder] ...`).
+**Models**: https://huggingface.co/realrebelai/SeFi-Image-5B-Base/tree/main
+
+ **VAE**: your existing single-file `flux2-vae.safetensors` in `models/vae/` works directly - it appears in the dropdown. For guaranteed-exact config values, drop the official `config.json` (from the SeFi repo's `vae/` folder) into this pack's `vae_assets/` as `flux2.json`; without it the loader derives the architecture from the weights. Diffusers-format VAE folders also work (listed as `[folder] ...`).
 
 Optional but recommended: copy the repo's `sefi_config.yaml` and the transformer `config.json` next to the merged file - the loader reads them for exact `delta_t` / shift values. Without them it uses sensible derived defaults.
 
