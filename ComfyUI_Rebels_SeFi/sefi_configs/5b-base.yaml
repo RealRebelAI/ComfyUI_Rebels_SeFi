@@ -1,0 +1,36 @@
+data:
+  resolution: 1024
+
+model:
+  model_name: flux2-klein-base-5b-sefi
+  transformer_scale: 5b
+  semantic_channels: 16
+  transformer_overrides: {}
+  channel_order: semantic_texture
+
+  assets:
+    transformer_config_path: .
+    scheduler_path: .
+
+  texture_vae:
+    name: flux2
+    base_path: .
+
+  text_encoder:
+    model_name: qwen3vl_4b
+    weights_root: .
+    max_length: 1024
+    hidden_layers:
+      - 9
+      - 18
+      - 27
+
+inference:
+  delta_t: 0.3
+  timestep_shift_alpha: 0.3
+
+training:
+  mixed_precision: bf16
+  sefi:
+    delta_t_min: 0.1
+    delta_t_max: 0.3

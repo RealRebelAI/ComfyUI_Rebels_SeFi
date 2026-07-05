@@ -1,0 +1,5 @@
+diffusers>=0.39.0
+transformers>=5.0.0
+omegaconf
+accelerate
+safetensors
