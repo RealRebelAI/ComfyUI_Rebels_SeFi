@@ -21,7 +21,6 @@ python_embeded\python.exe -m pip install -U diffusers transformers omegaconf acc
 
  **VAE**: your existing single-file `flux2-vae.safetensors` in `models/vae/` works directly - it appears in the dropdown. For guaranteed-exact config values, drop the official `config.json` (from the SeFi repo's `vae/` folder) into this pack's `vae_assets/` as `flux2.json`; without it the loader derives the architecture from the weights. Diffusers-format VAE folders also work (listed as `[folder] ...`).
 
-Optional but recommended: copy the repo's `sefi_config.yaml` and the transformer `config.json` next to the merged file - the loader reads them for exact `delta_t` / shift values. Without them it uses sensible derived defaults.
 
 ## Nodes (Rebels → SeFi)
 **Rebels SeFi Loader** — three dropdowns: transformer (diffusion_models), Qwen3-VL folder (text_encoders), VAE folder (vae). Scale, Base/Turbo family, and the semantic/texture channel split are derived automatically from the checkpoint.
