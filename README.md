@@ -33,15 +33,11 @@ python_embeded\python.exe -m pip install -U diffusers transformers omegaconf acc
 Turbo checkpoints only support 4/8/10 steps and guidance 1.0 (enforced).
 
 ## 8GB VRAM notes
-- 5B + fp8 + CPU text encoder + 1024×1024 is the intended config.
+- 5B + bf16 + CPU text encoder + 1024×1024 is the intended config.
 - First prompt is slow (CPU Qwen3-VL encode); generation speed is normal after.
 - 1B/2B checkpoints run in bf16 directly on 8GB.
 
-## Bonus: shard merge
-`sefi_merge_transformer.py` streams the sharded transformer into ONE safetensors (<1GB RAM, bitwise identical — verified):
-```
-python_embeded\python.exe sefi_merge_transformer.py --src D:\sefi-image\transformer --dst D:\sefi-image\SeFi-5B-Base_transformer_bf16.safetensors
-```
+
 
 ## License
 Node pack + vendored inference code: MIT. **Model weights: CC BY-NC 4.0 (non-commercial)** — respect the SeFi-Image license.
