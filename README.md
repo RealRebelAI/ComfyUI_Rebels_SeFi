@@ -24,7 +24,7 @@ python_embeded\python.exe -m pip install -U diffusers transformers omegaconf acc
 
 ## Nodes (Rebels → SeFi)
 **Rebels SeFi Loader** — three dropdowns: transformer (diffusion_models), Qwen3-VL folder (text_encoders), VAE folder (vae). Scale, Base/Turbo family, and the semantic/texture channel split are derived automatically from the checkpoint.
-- `weight_dtype`: **fp8_e4m3fn** (default, ~5.2GB VRAM for 5B — use this on 8GB cards) or bf16 (~10.4GB, needs 12GB+). fp8 keeps embedders/proj_out/time-embeds in bf16 for quality.
+- `weight_dtype`: **bf16** (~10.4GB, needs 12GB+). fp8 keeps embedders/proj_out/time-embeds in bf16 for quality. FP8 IS CURRENTLY NOT WORKING!
 - `text_encoder_device`: **cpu** (default; Qwen3-VL encodes once per prompt, no VRAM cost) or cuda.
 - `delta_t` / `timestep_shift_alpha`: −1 = model defaults. Advanced dials — Base/RL default alpha 0.3, Turbo 1.0.
 
