@@ -20,7 +20,7 @@ python_embeded\python.exe -m pip install -U diffusers transformers omegaconf acc
 
 Everything you need is in one place: [realrebelai/SeFi-Image-5B-Base](https://huggingface.co/realrebelai/SeFi-Image-5B-Base/tree/main)
 
-[realrebelai/SeFi-Image-5B-Turbo] (https://huggingface.co/realrebelai/SeFi-Image-5B-Turbo/tree/main)
+[realrebelai/SeFi-Image-5B-Turbo](https://huggingface.co/realrebelai/SeFi-Image-5B-Turbo/tree/main)
 
 | File | Goes in |
 |------|---------|
