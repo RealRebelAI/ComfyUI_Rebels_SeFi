@@ -33,9 +33,6 @@ Keep the scale + family in the transformer filename (`5B`, `Base`/`Turbo`) — t
 ⚠️ **Use the SeFi VAE from the repo, not a generic FLUX.2 VAE.** A generic one will *load* but produces degraded output — SeFi's texture stream is trained against its own VAE's latent statistics. They are **not interchangeable**.
 
 
-```
-python_embeded\python.exe ComfyUI\custom_nodes\ComfyUI_Rebels_SeFi\prepare_sefi_encoder.py --comfy ComfyUI --from-fp8 ComfyUI\models\text_encoders\qwen3vl_4b_fp8_scaled.safetensors
-```
 </details>
 
 ## Nodes (Rebels → SeFi)
