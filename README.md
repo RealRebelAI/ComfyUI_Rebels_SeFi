@@ -19,8 +19,6 @@ python_embeded\python.exe -m pip install -U diffusers transformers omegaconf acc
 ## Model installation (standard ComfyUI folders)
 **Models**: https://huggingface.co/realrebelai/SeFi-Image-5B-Base/tree/main
 
- **VAE**: your existing single-file `flux2-vae.safetensors` in `models/vae/` works directly - it appears in the dropdown. For guaranteed-exact config values, drop the official `config.json` (from the SeFi repo's `vae/` folder) into this pack's `vae_assets/` as `flux2.json`; without it the loader derives the architecture from the weights. Diffusers-format VAE folders also work (listed as `[folder] ...`).
-
 
 ## Nodes (Rebels → SeFi)
 **Rebels SeFi Loader** — three dropdowns: transformer (diffusion_models), Qwen3-VL folder (text_encoders), VAE folder (vae). Scale, Base/Turbo family, and the semantic/texture channel split are derived automatically from the checkpoint.
