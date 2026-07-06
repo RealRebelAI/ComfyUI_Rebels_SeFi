@@ -59,10 +59,6 @@ Turbo is distilled for **4/8/10 steps at guidance 1.0**. Other guidance values a
 
 `sefi_configs/` holds the models' `sefi_config.yaml` files (`5b-base.yaml`, `5b-turbo.yaml`) so `delta_t`/alpha resolve automatically. `encoder_assets/` holds the Qwen3-VL tokenizer/configs (auto-restored if missing). **If you update this pack by overwriting the folder, keep these directories** — or just `git pull`.
 
-## Extras
-
-- `prepare_sefi_encoder.py` — encoder builder (see above).
-- `sefi_merge_transformer.py` — streams sharded diffusers transformers into one safetensors (<1GB RAM), for making your own single-file models.
 
 ## Troubleshooting
 
