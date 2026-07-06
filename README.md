@@ -13,8 +13,6 @@ One transformer, one latent — but the latent carries **semantic + texture chan
 ```
 python_embeded\python.exe -m pip install -U diffusers transformers omegaconf accelerate
 ```
-(diffusers >= 0.39 required)
-3. Download a checkpoint repo (gated — accept the license on HF first), e.g. `SeFi-Image/SeFi-Image-5B-Base`, keeping the folder layout intact (`sefi_config.yaml`, `transformer/`, `vae/`, `text_encoder/`, `scheduler/`).
 
 ## Model installation (standard ComfyUI folders)
 **Models**: https://huggingface.co/realrebelai/SeFi-Image-5B-Base/tree/main
