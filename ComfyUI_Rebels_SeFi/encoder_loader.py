@@ -11,6 +11,8 @@ import torch
 import torch.nn as nn
 from torch import Tensor
 
+from .device_compat import empty_cache
+
 PACK_DIR = os.path.dirname(os.path.abspath(__file__))
 ASSETS = {
     "qwen3vl_2b": os.path.join(PACK_DIR, "encoder_assets", "qwen3vl_2b"),
@@ -240,8 +242,7 @@ class LazySeFiEncoder(torch.nn.Module):
             self._enc = None
             import gc
             gc.collect()
-            if torch.cuda.is_available():
-                torch.cuda.empty_cache()
+            empty_cache()
             print("[Rebels SeFi] text encoder freed from RAM")
 
     @torch.no_grad()
