@@ -22,6 +22,8 @@ import torch.nn.functional as F
 
 import folder_paths
 
+from .device_compat import best_device, empty_cache
+
 _SEFI_IMPORT_ERROR = None
 try:
     from .sefi_core import SEFIRunnerDirect
@@ -160,8 +162,7 @@ def _install_block_swap(transformer, device: str, blocks_on_gpu: int) -> int:
     blocks = _collect_blocks(transformer)
     if blocks_on_gpu >= len(blocks):
         transformer.to(device)
-        if torch.cuda.is_available():
-            torch.cuda.empty_cache()
+        empty_cache(device)
         return 0  # everything resident - no hooks, full speed
 
     # whole model to GPU first (small parts + resident blocks stay)
@@ -176,8 +177,7 @@ def _install_block_swap(transformer, device: str, blocks_on_gpu: int) -> int:
     def make_post(block):
         def post(module, args, output):
             module.to("cpu")
-            if torch.cuda.is_available():
-                torch.cuda.empty_cache()
+            empty_cache(device)
             return None
         return post
 
@@ -189,8 +189,7 @@ def _install_block_swap(transformer, device: str, blocks_on_gpu: int) -> int:
         block.register_forward_pre_hook(make_pre(block))
         block.register_forward_hook(make_post(block))
         swapped += 1
-    if torch.cuda.is_available():
-        torch.cuda.empty_cache()
+    empty_cache(device)
     return swapped
 
 
@@ -526,13 +525,12 @@ class RebelsSeFiLoader:
         if _PIPE_CACHE:
             _PIPE_CACHE.clear()
             gc.collect()
-            if torch.cuda.is_available():
-                torch.cuda.empty_cache()
+            empty_cache()
 
         from diffusers import FlowMatchEulerDiscreteScheduler, Flux2KleinPipeline
         from safetensors.torch import load_file
 
-        device = "cuda" if torch.cuda.is_available() else "cpu"
+        device = best_device()
         model_path = None
         for kind in ("diffusion_models", "unet"):
             try:
@@ -794,8 +792,9 @@ class RebelsSeFiSampler:
             )
         finally:
             gc.collect()
-            if torch.cuda.is_available():
-                torch.cuda.empty_cache()
+            _dev = str(runner.device)
+            empty_cache(_dev)
+            if _dev == "cuda":
                 try:
                     torch.cuda.ipc_collect()
                 except Exception:
